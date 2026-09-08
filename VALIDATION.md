@@ -2,7 +2,8 @@
 
 ## Completed locally
 
-- **45 offline tests passed** on Python 3.12.2 with Biopython 1.88, requests 2.32.2 and pytest 7.4.4. The suite validates notebook schema/source synchronization and executes its setup/input/import cells without Colab or remote searches.
+- **48 offline tests passed** on Python 3.12.2 with Biopython 1.88, requests 2.32.2 and pytest 7.4.4. The suite validates notebook schema/source synchronization and executes its setup/input/import cells without Colab or remote searches. Display tests cover empty results, HTML escaping, saved decisions and preview limits without truncating totals.
+- The presentation revision preserves `workflow_support.py` byte for byte and preserves the Python AST of all parameter/analysis cells. Only the generated helper cell and the diagnosis display cell gain presentation code; the PfaA sequence and scientific defaults are unchanged.
 - **Eight synthetic standard-annotation cases** were compared with the filter extracted from upstream commit `a67a4dc220b1090cc9e16356a1280bd4e3c94fa3`: gaps of 0, 24,999, 25,000 and 25,001 bp, each with one or two A/C domains and duplicate fullhmmer/clusterhmmer annotations. Original and revised pass/fail decisions agreed in all eight cases.
 - **Actual cblaster 1.4.2 interfaces** were exercised with two synthetic GenBank inputs: native file-list input, batch size 1, SQLite generation, local-search output formats and downstream filtering. The DIAMOND executable was deliberately stubbed; this checks interfaces and data handoff, not homology search accuracy or performance. One of the two regions passed the independently specified gap rule.
 - That interface check reproduced cblaster 1.4.2's multi-result `ndarray is not JSON serializable` plot failure. Separating search/plotting and normalizing rendering data resolved it. A regression test verifies that a plot failure does not repeat a completed search.

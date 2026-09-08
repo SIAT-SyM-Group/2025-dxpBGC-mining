@@ -17,6 +17,8 @@
 
 ### Usability and resource use
 
+- Give the repository a visual overview, a two-input workflow diagram and a separate detailed user guide. Organize Colab into four phases with grouped parameter forms and embedded images that travel with the notebook.
+- Display the saved diagnosis as a responsive evidence dashboard with passing/excluded counts, independent failed-gate bars and a region table. Save `diagnosis.html` for offline review; no candidate decisions are recalculated.
 - Validate anchor and marker sets before expensive steps. Support an existing marker path, explicit upload, and importing BLAST TSVs.
 - Keep the notebook self-contained while testing the same helper code as a Python module. Clear execution/widget metadata.
 - Bound outstanding worker tasks, cap antiSMASH concurrency by CPUs and estimated memory, and stream complete logs to files.
