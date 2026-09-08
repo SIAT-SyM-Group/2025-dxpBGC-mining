@@ -1,66 +1,72 @@
-# Genome Mining Workflow (antiSMASH + cblaster + rule-based filtering)
-<a href="https://colab.research.google.com/github/SIAT-SyM-Group/2025-dxpBGC-mining/blob/main/workflow.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<p align="center">
+  <img src="docs/assets/hero.svg" alt="DxpBGC — from protein evidence to candidate gene clusters" width="100%">
+</p>
 
-A Colab-ready notebook workflow for **BGC (biosynthetic gene cluster) genome mining**. Starting from protein queries, it automates **BLASTP hit retrieval → IPG/nuccore mapping and genomic neighborhood download (±FLANK) → batch antiSMASH annotation → local cblaster database build/search → rule-based filtering → (optional) clinker visualization**, enabling rapid triage of large candidate sets into higher-confidence cluster regions.
+<p align="center">
+  <a href="https://colab.research.google.com/github/SIAT-SyM-Group/2025-dxpBGC-mining/blob/main/workflow.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab"></a>
+  &nbsp; · &nbsp; <a href="docs/user-guide.md"><strong>User guide</strong></a>
+  &nbsp; · &nbsp; <a href="#what-you-get"><strong>Results</strong></a>
+  &nbsp; · &nbsp; <a href="VALIDATION.md"><strong>Validation</strong></a>
+</p>
 
-## Features
-- **Run in Google Colab**: no local conda/antiSMASH required (dependencies/tools are installed by the notebook)
-- **End-to-end automation**: BLASTP → neighborhood download → BGC annotation → similarity search → filtering/export
-- **Scale control**: taxid-based deduplication, Top-N limits, tunable concurrency to avoid resource blowups
-- **Interpretable filtering**: optional diagnostics table to explain why candidates failed and guide threshold tuning
-- **Visualization-ready (optional)**: retained GBKs can be fed into clinker to produce interactive HTML views
+**Find candidate biosynthetic gene clusters using protein homology, genomic proximity and domain evidence.** DxpBGC connects BLASTP, antiSMASH 8, cblaster and optional clinker visualization in a Colab workflow with resumable stages and saved evidence for every matched region.
 
-## Pipeline Overview
-1. **Dependencies & NCBI credentials**: set `NCBI_EMAIL` (required) and `NCBI_API_KEY` (recommended)
-2. **Query FASTA**: provide protein sequences (raw or FASTA) and write a normalized FASTA
-3. **BLASTP (URLAPI)**: run BLASTP against `refseq_protein` (default) and download TSV
-4. **IPG/nuccore neighborhood**: map WP hits to genome records and download **±FLANK** neighborhoods (FASTA)
-5. **antiSMASH batch annotation**: annotate neighborhoods to produce region GBKs and HTML reports
-6. **Local cblaster search**: build a local database from antiSMASH region GBKs and search; export `summary/abspres/session`
-7. **Rule-based filter & export**: apply rules and copy passing regions to a destination directory
-8. **Diagnostics (optional)**: generate `filter_diagnosis.tsv` when nothing passes
-9. **clinker visualization (optional)**: create interactive cluster alignment HTML for retained GBKs
+## The workflow
 
-## Requirements
-- Recommended: **Google Colab**
-- Python packages: `biopython`, `requests`, `tqdm`, etc. (auto-installed)
-- Tools via micromamba:
-  - **antiSMASH** for BGC prediction/annotation
-  - **cblaster** for local gene-cluster similarity searches
-  - **clinker (optional)** for visualization
+![Two inputs: an anchor drives BLAST and neighborhood annotation; a separate marker set enters cblaster before evidence filtering and candidate export.](docs/assets/workflow.svg)
 
-## Quick Start (Colab)
-1. Open `workflow.ipynb`
-2. In the setup cell, provide:
-   - `NCBI_EMAIL` (required)
-   - `NCBI_API_KEY` (recommended for stability/throughput)
-3. Paste/load protein query sequences and generate the query FASTA
-4. Run subsequent cells (recommended: `Runtime → Run all`)
-5. Inspect retained region GBKs and (optionally) clinker HTML outputs
+## Start with two inputs
 
-## Key Parameters
-- **BLAST**: `HIT_TOP_N`, `EXPECT`, `POLL_SEC`, `MAX_WAIT_H`
-- **Neighborhood**: `FLANK` (bp), `THREADS`, `TOP_N_UNIQ_TAXID`
-- **antiSMASH**: `MAX_JOBS`, `CPUS_PER_JOB`, `DOWNLOAD_DB`
-- **cblaster**: `MI` (min identity), `MC` (min coverage)
-- **Filtering**: `PROTO_GAP_MAX`, `COPY_MODE`, `COL`, `ROOT`, `DEST`
+| Prepare | What to provide |
+| :--- | :--- |
+| **A · Protein anchor** | The original **AAN54658.1-PfaA, 2,531 aa** example is included. Replace it with your own protein sequence or FASTA when needed. |
+| **B · Marker proteins** | Supply a **separate FASTA** with at least **3 distinct marker proteins** for the default `U=3`. A marker set is **not included** in this repository. |
+| **Runtime** | Linux x86_64 CPU runtime, an NCBI contact email and space for the antiSMASH tools/databases. No GPU is needed. |
 
-## Inputs & Outputs
-### Inputs
-- Protein query sequence(s) (raw/FASTA)
-- NCBI Entrez credentials: `NCBI_EMAIL` (required), `NCBI_API_KEY` (recommended)
-- BLAST TSV produced by the notebook and passed downstream
+1. **Prepare · steps 0–3** — initialize the notebook, choose a workspace and validate both inputs.
+2. **Mine · steps 4–6** — run or import BLAST, download neighborhoods and annotate with antiSMASH.
+3. **Select · steps 7–9** — search the marker set, filter regions and review the evidence dashboard.
+4. **Explore · step 10** — optionally compare exported candidates with clinker. Save the complete workspace.
 
-### Outputs (default folders/files)
-- `wp_flanks_fna/`: downloaded neighborhoods (±FLANK)
-- `antismash_out/`: antiSMASH outputs (including `index.html` and region GBKs)
-- `final-target/`: retained GBKs/folders after filtering (depends on `COPY_MODE`)
-- `final-target/filter_diagnosis.tsv`: (optional) failure diagnostics
-- `summary-*.csv`, `abspres-*.csv`, `session-*.json`, `my_plot-*.html`: cblaster outputs
+> **Small demonstration by default.** The notebook starts with 10 BLAST hits and one representative taxid. These settings do not reproduce the full published candidate set. antiSMASH setup still takes substantial time and disk space. [Full setup instructions →](docs/user-guide.md#start-in-colab)
 
-## Troubleshooting
-- **No/slow BLAST hits**: reduce `HIT_TOP_N`, adjust `EXPECT`, increase `MAX_WAIT_H` if needed
-- **Frequent Entrez/IPG failures**: ensure `NCBI_EMAIL`, strongly recommend `NCBI_API_KEY`, reduce `THREADS`
-- **antiSMASH too slow/resource-limited**: lower `MAX_JOBS` or `CPUS_PER_JOB`; set `DOWNLOAD_DB=True` for first run
-- **Nothing passes filters**: run Diagnostics to generate `filter_diagnosis.tsv`, then tune `PROTO_GAP_MAX` and domain thresholds
-- **Region file matching fails**: confirm `ROOT` points to `antismash_out` (or GBK root) and `COL` matches the region-name column
+## What you get
+
+| Result | Where to look | Use it to… |
+| :--- | :--- | :--- |
+| **Candidate evidence dashboard** | Step 9 · `diagnosis.html` | See passing/excluded counts, failed conditions and a preview of region-level evidence. The complete table is `filter_diagnosis.tsv`. |
+| **Passing region list** | `kept_region_files.abs.txt` | Identify the exact passing GBKs. Complete report folders can also contain non-passing regions. |
+| **Marker co-occurrence view** | cblaster · `plot.html` | Inspect the marker search alongside its session and tabular outputs. |
+| **Gene-cluster comparison** | Optional clinker · `index.html` | Compare exported candidates. The default 20-region view limit leaves the full passing set intact. |
+| **Traceable run** | Workspace manifests, logs and version records | Follow input accessions, coordinates, tool versions and cached stage outputs. |
+
+The evidence dashboard reads the saved diagnosis; it does not rerun or reinterpret the filter. Zero passing regions is a valid result. Keep the complete `WORK_DIR` on persistent storage to retain checkpoints across runtime resets.
+
+## How candidates are selected
+
+All four evidence requirements must be met:
+
+| Evidence | Default requirement |
+| :--- | :--- |
+| **PKS annotations** | `PKS_AT` and `ketoacyl synthase` in GenBank text, case-insensitively. |
+| **Domain composition** | ≥2 PF00501 **or** ≥2 AMP-binding features, **and** ≥2 condensation features. Duplicate annotations of the same domain are counted once. |
+| **Core proximity** | NRPS and hglE-KS cores on the same sequence record, with minimum gap **≤25,000 bp**. |
+| **Product annotation** | An exact `NRPS` product annotation. |
+
+These are computational candidates. Co-localization and domain evidence do not establish compound identity, bioactivity or experimentally demonstrated biosynthesis. [Exact filter semantics and parser limits →](docs/user-guide.md#filter-definition)
+
+## Go deeper
+
+| I want to… | Read |
+| :--- | :--- |
+| Change parameters or resume an interrupted run | [User guide](docs/user-guide.md) · [Recovery](docs/user-guide.md#recovery-and-provenance) |
+| Understand files or troubleshoot a result | [Output map](docs/user-guide.md#outputs) · [Troubleshooting](docs/user-guide.md#troubleshooting) |
+| Check what has actually been tested | [Validation record](VALIDATION.md) |
+| Inspect or extend the workflow | [Analysis helpers](workflow_support.py) · [Display helpers](workflow_presentation.py) · [Development](docs/user-guide.md#development-and-validation) |
+| Migrate older outputs | [Change log](CHANGELOG.md) |
+
+Local validation covers recovery, cache behavior, filter boundaries and notebook structure. **Full Colab/antiSMASH execution, published-set reproduction and real-workload performance remain unvalidated.**
+
+---
+
+Maintained by [SIAT SyM Group](https://github.com/SIAT-SyM-Group). Licensed under [Apache 2.0](LICENSE); external tools and databases retain their own licenses.

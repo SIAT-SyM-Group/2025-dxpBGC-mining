@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="352" viewBox="0 0 1440 352" role="img" aria-labelledby="title desc">
+  <title id="title">DxpBGC — from protein evidence to candidate gene clusters</title>
+  <desc id="desc">A navy and teal project banner with a schematic genomic neighborhood. Gene arrows are decorative, not experimental data.</desc>
+  <rect width="1440" height="352" rx="24" fill="#10283f"/>
+  <path d="M0 326H1440" stroke="#153a53" stroke-width="52"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="56" y="59" fill="#9fc9d1" font-size="18" font-weight="700" letter-spacing="3">SIAT · SyM GROUP</text>
+    <text x="52" y="153" fill="#ffffff" font-size="86" font-weight="700" letter-spacing="-3">DxpBGC</text>
+    <text x="56" y="205" fill="#f2f6fa" font-size="30">From protein evidence</text>
+    <text x="56" y="244" fill="#f2f6fa" font-size="30">to candidate gene clusters.</text>
+    <text x="56" y="326" fill="#bdd2de" font-size="18" letter-spacing="1.5">GENOME MINING / ANNOTATION / EVIDENCE REVIEW</text>
+    <text x="797" y="63" fill="#9fc9d1" font-size="17" letter-spacing="2.5">A GENOMIC NEIGHBORHOOD</text>
+    <rect x="786" y="88" width="594" height="153" rx="18" fill="#193a50"/>
+    <path d="M812 165H1355" stroke="#4f7286" stroke-width="3"/>
+    <g stroke="#10283f" stroke-width="3" stroke-linejoin="round">
+      <path d="M816 145H865L883 165 865 185H816Z" fill="#6b8396"/>
+      <path d="M891 145H932L950 165 932 185H891Z" fill="#6b8396"/>
+      <path d="M956 132H1062L1091 165 1062 198H956Z" fill="#61d3c4"/>
+      <path d="M1098 145H1135L1153 165 1135 185H1098Z" fill="#dbe7ef"/>
+      <path d="M1160 145H1220L1238 165 1220 185H1160Z" fill="#91b9c3"/>
+      <path d="M1245 145H1331L1349 165 1331 185H1245Z" fill="#91b9c3"/>
+    </g>
+    <path d="M1017 208V225" stroke="#61d3c4" stroke-width="2"/>
+    <text x="966" y="271" fill="#8ce3d6" font-size="19">anchor</text>
+    <text x="1166" y="271" fill="#bdd2de" font-size="19">nearby genes</text>
+    <text x="1328" y="326" fill="#bdd2de" font-size="16" text-anchor="end">SCHEMATIC</text>
+  </g>
+</svg>

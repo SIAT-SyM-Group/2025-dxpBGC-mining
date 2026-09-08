@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="718" viewBox="0 0 1440 718" role="img" aria-labelledby="title desc">
+  <title id="title">Two inputs, one evidence-guided workflow</title>
+  <desc id="desc">The protein anchor goes through BLASTP, WP/IPG neighborhood mapping and antiSMASH. A separate marker FASTA joins the annotated regions at cblaster. Domain and core-distance filters select candidate regions for export and optional clinker visualization.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#78909f"/></marker></defs>
+  <rect width="1440" height="718" rx="22" fill="#f5f8fa"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="42" y="53" fill="#10283f" font-size="30" font-weight="700">Two inputs. One evidence-guided workflow.</text>
+    <text x="42" y="89" fill="#526777" font-size="22">Validate both inputs before starting the search.</text>
+    <g fill="none" stroke="#78909f" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M330 222H375"/><path d="M650 222H695"/><path d="M990 222H1035"/>
+      <path d="M1194 306V350H518V402"/>
+      <path d="M330 490H375"/><path d="M650 490H695"/><path d="M990 490H1035"/>
+    </g>
+    <g stroke-width="2">
+      <rect x="42" y="138" width="288" height="168" rx="14" fill="#e5f4f1" stroke="#b4dcd5"/>
+      <rect x="382" y="138" width="268" height="168" rx="14" fill="#ffffff" stroke="#dae3e9"/>
+      <rect x="702" y="138" width="288" height="168" rx="14" fill="#ffffff" stroke="#dae3e9"/>
+      <rect x="1042" y="138" width="352" height="168" rx="14" fill="#ffffff" stroke="#dae3e9"/>
+      <rect x="42" y="410" width="288" height="168" rx="14" fill="#e5f4f1" stroke="#b4dcd5"/>
+      <rect x="382" y="410" width="268" height="168" rx="14" fill="#ffffff" stroke="#dae3e9"/>
+      <rect x="702" y="410" width="288" height="168" rx="14" fill="#ffffff" stroke="#dae3e9"/>
+      <rect x="1042" y="410" width="352" height="168" rx="14" fill="#10283f" stroke="#10283f"/>
+    </g>
+    <g font-size="18" font-weight="700" letter-spacing="1.5" fill="#526777">
+      <text x="64" y="171" fill="#146b60">INPUT A · STEP 2</text><text x="404" y="171">STEP 4</text>
+      <text x="724" y="171">STEP 5</text><text x="1064" y="171">STEP 6</text>
+      <text x="64" y="443" fill="#146b60">INPUT B · STEP 3</text><text x="404" y="443">STEP 7</text>
+      <text x="724" y="443">STEPS 8–9</text><text x="1064" y="443" fill="#9fc9d1">OUTPUT · STEP 10 OPTIONAL</text>
+    </g>
+    <g font-size="29" font-weight="700" fill="#10283f">
+      <text x="64" y="218">Protein anchor</text><text x="404" y="218">BLASTP</text>
+      <text x="724" y="218">Neighborhoods</text><text x="1064" y="218">antiSMASH 8</text>
+      <text x="64" y="490">Marker FASTA</text><text x="404" y="490">cblaster</text>
+      <text x="724" y="490">Evidence gates</text><text x="1064" y="490" fill="#ffffff">Candidate regions</text>
+    </g>
+    <g font-size="22" fill="#526777">
+      <text x="64" y="259">PfaA example supplied</text><text x="404" y="259">Find protein homologs</text>
+      <text x="724" y="259">Map WP/IPG hits</text><text x="1064" y="259">Annotate region GBKs</text>
+      <text x="64" y="530">Supply your marker set</text><text x="404" y="530">Find nearby markers</text>
+      <text x="724" y="530">Domains + core gap</text><text x="1064" y="530" fill="#dbe7ef">Export · diagnose · clinker</text>
+    </g>
+    <rect x="780" y="334" width="231" height="32" rx="6" fill="#f5f8fa"/>
+    <text x="791" y="357" fill="#526777" font-size="20">annotated region files</text>
+    <path d="M42 618H1394" stroke="#dae3e9" stroke-width="2"/>
+    <text x="42" y="659" fill="#146b60" font-size="22" font-weight="700">Separate inputs</text>
+    <text x="244" y="659" fill="#526777" font-size="22">The default cblaster search needs at least 3 distinct marker proteins.</text>
+    <text x="42" y="693" fill="#526777" font-size="19">Candidate status reflects computational evidence; it does not establish compound identity or biological activity.</text>
+  </g>
+</svg>
