@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+.ipynb_checkpoints/
+dxp-results/
+dxp-tools/
