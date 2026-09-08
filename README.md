@@ -11,7 +11,7 @@
 
 **Find candidate biosynthetic gene clusters using protein homology, genomic proximity and domain evidence.** DxpBGC connects BLASTP, antiSMASH 8, cblaster and optional clinker visualization in a Colab workflow with resumable stages and saved evidence for every matched region.
 
-**中文：**准备锚定蛋白和独立的多蛋白标记集，依次完成同源搜索、邻域注释与候选筛选；最后查看筛选依据和基因簇图。
+**中文：** 准备锚定蛋白和独立的多蛋白标记集，依次完成同源搜索、邻域注释与候选筛选；最后查看筛选依据和基因簇图。
 
 ## The workflow
 
